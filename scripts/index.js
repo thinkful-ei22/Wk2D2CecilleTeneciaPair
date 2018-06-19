@@ -1,5 +1,4 @@
 'use strict';
-const API_KEY = '';
 const items = [
   {
     'kind': 'youtube#searchResult',
@@ -101,7 +100,7 @@ const fetchVideos = function(searchTerm, callback) {
   $.getJSON(url, callback);
 };
 
-fetchVideos('thinkful',results => console.log(results));
+//fetchVideos('thinkful',results => console.log(results));
 
 // TASK:
 // 1. Create a `decorateResponse` function that receives the Youtube API response
@@ -111,6 +110,7 @@ fetchVideos('thinkful',results => console.log(results));
 // WILL have to dig into several nested properties!
 // TEST IT! Grab an example API response and send it into the function - make sure
 // you get back the object you want.
+
 const decorateResponse = function(response) {
   return response.map(item => ({
 
@@ -119,15 +119,23 @@ const decorateResponse = function(response) {
     thumbnail: item.snippet.thumbnails.medium.url,
   }));
 };
-console.log(decorateResponse(items));
+//console.log(decorateResponse(items));
 
 // TASK:
 // 1. Create a `generateVideoItemHtml` function that receives the decorated object
 // 2. Using the object, return an HTML string containing all the expected data
 // TEST IT!
-const generateVideoItemHtml = function(video) {
 
+const generateVideoItemHtml = function(video) {
+  return `
+    <li id="${video.id}">
+      <h2>${video.title}<h2>
+      <img src="${video.thumbnail}">
+    </li>`;
 };
+//console.log(items);
+//console.log(decorateResponse(items))
+//console.log(generateVideoItemHtml(decorateResponse(items)));
 
 // TASK:
 // 1. Create a `addVideosToStore` function that receives an array of decorated video
