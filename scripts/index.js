@@ -1,7 +1,76 @@
+'use strict';
 const API_KEY = '';
+const items = [
+  {
+    'kind': 'youtube#searchResult',
+    'etag': '\'DuHzAJ-eQIiCIp7p4ldoVcVAOeY/2RLd9Pj448BrUeZkkTlLhkASYng\'',
+    'id': {
+      'kind': 'youtube#video',
+      'videoId': 'e3SRTL_XWyc'
+    },
+    'snippet': {
+      'publishedAt': '2018-04-22T18:22:23.000Z',
+      'channelId': 'UCwD4x63A9KC7Si2RuSfg-SA',
+      'title': 'SCARY CLOWNS STOLE MY TWIN BROTHER!',
+      'description': 'I HAD TO GET HIM BACK! WANT TO SEE US IN NYC & NJ?! BUY TIX HERE! ➨ http://bit.ly/DobreTour WE POST TUESDAY,THURSDAY, & SUNDAY!',
+      'thumbnails': {
+        'default': {
+          'url': 'https://i.ytimg.com/vi/e3SRTL_XWyc/default.jpg',
+          'width': 120,
+          'height': 90
+        },
+        'medium': {
+          'url': 'https://i.ytimg.com/vi/e3SRTL_XWyc/mqdefault.jpg',
+          'width': 320,
+          'height': 180
+        },
+        'high': {
+          'url': 'https://i.ytimg.com/vi/e3SRTL_XWyc/hqdefault.jpg',
+          'width': 480,
+          'height': 360
+        }
+      },
+      'channelTitle': 'Lucas and Marcus',
+      'liveBroadcastContent': 'none'
+    }
+  },
+  {
+    'kind': 'youtube#searchResult',
+    'etag': '\'DuHzAJ-eQIiCIp7p4ldoVcVAOeY/VGZapExdeg4eKKt4c4_ye3s7G0w\'',
+    'id': {
+      'kind': 'youtube#video',
+      'videoId': 'yXb8Yszgh_o'
+    },
+    'snippet': {
+      'publishedAt': '2018-04-29T21:12:15.000Z',
+      'channelId': 'UCwD4x63A9KC7Si2RuSfg-SA',
+      'title': 'WE CAUGHT THE SCARY CLOWNS!',
+      'description': 'FINALLY!!! WANT TO SEE US IN NYC & NJ?! BUY TIX HERE! ➨ http://bit.ly/DobreTour WE POST TUESDAY,THURSDAY, & SUNDAY! TURN OUR POST ...',
+      'thumbnails': {
+        'default': {
+          'url': 'https://i.ytimg.com/vi/yXb8Yszgh_o/default.jpg',
+          'width': 120,
+          'height': 90
+        },
+        'medium': {
+          'url': 'https://i.ytimg.com/vi/yXb8Yszgh_o/mqdefault.jpg',
+          'width': 320,
+          'height': 180
+        },
+        'high': {
+          'url': 'https://i.ytimg.com/vi/yXb8Yszgh_o/hqdefault.jpg',
+          'width': 480,
+          'height': 360
+        }
+      },
+      'channelTitle': 'Lucas and Marcus',
+      'liveBroadcastContent': 'none'
+    }
+  },
+]
 
 /*
-  We want our store to hold a `videos` array of "decorated" objects - i.e. objects that
+  We want our store to hold a `videos` array of 'decorated' objects - i.e. objects that
   have been transformed into just the necessary data to display on our page, compared to the large
   dataset Youtube will deliver to us.  Example object:
 
@@ -43,8 +112,14 @@ fetchVideos('thinkful',results => console.log(results));
 // TEST IT! Grab an example API response and send it into the function - make sure
 // you get back the object you want.
 const decorateResponse = function(response) {
+  return response.map(item => ({
 
+    id: item.id.videoId,
+    title: item.snippet.title,
+    thumbnail: item.snippet.thumbnails.medium.url,
+  }));
 };
+console.log(decorateResponse(items));
 
 // TASK:
 // 1. Create a `generateVideoItemHtml` function that receives the decorated object
