@@ -907,11 +907,11 @@ const generateVideoItemHtml = function(video) {
 // objects and sets the array as the value held in store.videos
 // TEST IT!
 const addVideosToStore = function(videos) {
-
+  store.videos = videos;
 };
-console.log('store before call to addVideosToStore', store);
-addVideosToStore([testDecoratedVideo])
-console.log('store after call to addVideosToStore', store);
+// console.log('store before call to addVideosToStore', store);
+//addVideosToStore([testDecoratedVideo])
+// console.log('store after call to addVideosToStore', store);
 
 // TASK:
 // 1. Create a `render` function
