@@ -876,14 +876,13 @@ const fetchVideos = function(searchTerm, callback) {
 // you get back the object you want.
 
 const decorateResponse = function(response) {
-  return response.map(item => ({
-
+  return response.items.map(item => ({
     id: item.id.videoId,
     title: item.snippet.title,
     thumbnail: item.snippet.thumbnails.medium.url,
   }));
 };
-//console.log(decorateResponse(items));
+//console.log(decorateResponse(testResponse));
 
 // TASK:
 // 1. Create a `generateVideoItemHtml` function that receives the decorated object
