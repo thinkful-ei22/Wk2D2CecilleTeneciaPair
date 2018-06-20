@@ -831,6 +831,11 @@ const testResponse = {
  ]
 }
 
+const testDecoratedVideo = {
+  id: "LzVmPPpObO4",
+  thumbnail: "https://i.ytimg.com/vi/LzVmPPpObO4/mqdefault.jpg",
+  title: "Jason Humphrey & How Thinkful Is Innovating Bootcamps",
+};
 
 /*
   We want our store to hold a `videos` array of 'decorated' objects - i.e. objects that
@@ -884,7 +889,7 @@ const decorateResponse = function(response) {
 //console.log(decorateResponse(testResponse));
 
 // TASK:
-// 1. Create a `generateVideoItemHtml` function that receives a decorated object
+// 1. Create a `generateVideoItemHtml` function that receives a decorated video object
 // 2. Using the object, return an HTML string containing all the expected data
 // TEST IT!
 
@@ -895,12 +900,7 @@ const generateVideoItemHtml = function(video) {
       <img src="${video.thumbnail}">
     </li>`;
 };
-// const testVideo = {
-//   id: "LzVmPPpObO4",
-//   thumbnail: "https://i.ytimg.com/vi/LzVmPPpObO4/mqdefault.jpg",
-//   title: "Jason Humphrey & How Thinkful Is Innovating Bootcamps",
-// };
-// console.log(generateVideoItemHtml(testVideo));
+// console.log(generateVideoItemHtml(testDecoratedVideo));
 
 // TASK:
 // 1. Create a `addVideosToStore` function that receives an array of decorated video
@@ -909,6 +909,9 @@ const generateVideoItemHtml = function(video) {
 const addVideosToStore = function(videos) {
 
 };
+console.log('store before call to addVideosToStore', store);
+addVideosToStore([testDecoratedVideo])
+console.log('store after call to addVideosToStore', store);
 
 // TASK:
 // 1. Create a `render` function
