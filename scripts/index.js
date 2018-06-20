@@ -1,5 +1,5 @@
 'use strict';
-const API_KEY = 'AIzaSyDlQJTktKXG8GEScA-ixLtTQvV88OaG3PU';
+const API_KEY = '';
 
 
 const store = {
