@@ -1,86 +1,7 @@
 'use strict';
-const API_KEY = '';
-const items = [
-  {
-    'kind': 'youtube#searchResult',
-    'etag': '\'DuHzAJ-eQIiCIp7p4ldoVcVAOeY/2RLd9Pj448BrUeZkkTlLhkASYng\'',
-    'id': {
-      'kind': 'youtube#video',
-      'videoId': 'e3SRTL_XWyc'
-    },
-    'snippet': {
-      'publishedAt': '2018-04-22T18:22:23.000Z',
-      'channelId': 'UCwD4x63A9KC7Si2RuSfg-SA',
-      'title': 'SCARY CLOWNS STOLE MY TWIN BROTHER!',
-      'description': 'I HAD TO GET HIM BACK! WANT TO SEE US IN NYC & NJ?! BUY TIX HERE! ➨ http://bit.ly/DobreTour WE POST TUESDAY,THURSDAY, & SUNDAY!',
-      'thumbnails': {
-        'default': {
-          'url': 'https://i.ytimg.com/vi/e3SRTL_XWyc/default.jpg',
-          'width': 120,
-          'height': 90
-        },
-        'medium': {
-          'url': 'https://i.ytimg.com/vi/e3SRTL_XWyc/mqdefault.jpg',
-          'width': 320,
-          'height': 180
-        },
-        'high': {
-          'url': 'https://i.ytimg.com/vi/e3SRTL_XWyc/hqdefault.jpg',
-          'width': 480,
-          'height': 360
-        }
-      },
-      'channelTitle': 'Lucas and Marcus',
-      'liveBroadcastContent': 'none'
-    }
-  },
-  {
-    'kind': 'youtube#searchResult',
-    'etag': '\'DuHzAJ-eQIiCIp7p4ldoVcVAOeY/VGZapExdeg4eKKt4c4_ye3s7G0w\'',
-    'id': {
-      'kind': 'youtube#video',
-      'videoId': 'yXb8Yszgh_o'
-    },
-    'snippet': {
-      'publishedAt': '2018-04-29T21:12:15.000Z',
-      'channelId': 'UCwD4x63A9KC7Si2RuSfg-SA',
-      'title': 'WE CAUGHT THE SCARY CLOWNS!',
-      'description': 'FINALLY!!! WANT TO SEE US IN NYC & NJ?! BUY TIX HERE! ➨ http://bit.ly/DobreTour WE POST TUESDAY,THURSDAY, & SUNDAY! TURN OUR POST ...',
-      'thumbnails': {
-        'default': {
-          'url': 'https://i.ytimg.com/vi/yXb8Yszgh_o/default.jpg',
-          'width': 120,
-          'height': 90
-        },
-        'medium': {
-          'url': 'https://i.ytimg.com/vi/yXb8Yszgh_o/mqdefault.jpg',
-          'width': 320,
-          'height': 180
-        },
-        'high': {
-          'url': 'https://i.ytimg.com/vi/yXb8Yszgh_o/hqdefault.jpg',
-          'width': 480,
-          'height': 360
-        }
-      },
-      'channelTitle': 'Lucas and Marcus',
-      'liveBroadcastContent': 'none'
-    }
-  },
-]
+const API_KEY = 'AIzaSyDlQJTktKXG8GEScA-ixLtTQvV88OaG3PU';
 
-/*
-  We want our store to hold a `videos` array of 'decorated' objects - i.e. objects that
-  have been transformed into just the necessary data to display on our page, compared to the large
-  dataset Youtube will deliver to us.  Example object:
 
-  {
-    id: '98ds8fbsdy67',
-    title: 'Cats dancing the Macarena',
-    thumbnail: 'https://img.youtube.com/some/thumbnail.jpg'
-  }
-
-*/
 const store = {
   videos: []
 };
@@ -101,7 +22,6 @@ const fetchVideos = function(searchTerm, callback) {
   $.getJSON(url, callback);
 };
 
-fetchVideos('thinkful',results => console.log(results));
 
 // TASK:
 // 1. Create a `decorateResponse` function that receives the Youtube API response
@@ -111,22 +31,25 @@ fetchVideos('thinkful',results => console.log(results));
 // WILL have to dig into several nested properties!
 // TEST IT! Grab an example API response and send it into the function - make sure
 // you get back the object you want.
-const decorateResponse = function(response) {
-  return response.map(item => ({
-
-    id: item.id.videoId,
-    title: item.snippet.title,
-    thumbnail: item.snippet.thumbnails.medium.url,
-  }));
+const decorateResponse = response =>  {
+  return response.items.map(item => {
+    const id = item.id.videoId;
+    const title = item.snippet.title;
+    const thumbnail = item.snippet.thumbnails.medium.url;
+    return {id, title, thumbnail};
+    
+  });
 };
-console.log(decorateResponse(items));
 
 // TASK:
 // 1. Create a `generateVideoItemHtml` function that receives the decorated object
 // 2. Using the object, return an HTML string containing all the expected data
 // TEST IT!
 const generateVideoItemHtml = function(video) {
-
+  return `<li id = '${video.id}'>
+        <h2>${video.title}</h3>
+        <img src = '${video.thumbnail}'>
+        </li>`;
 };
 
 // TASK:
@@ -134,6 +57,7 @@ const generateVideoItemHtml = function(video) {
 // objects and sets the array as the value held in store.videos
 // TEST IT!
 const addVideosToStore = function(videos) {
+  store.videos = videos;
 
 };
 
@@ -143,7 +67,10 @@ const addVideosToStore = function(videos) {
 // 3. Add your array of DOM elements to the appropriate DOM element
 // TEST IT!
 const render = function() {
-
+  const videoItems = store.videos.map(vid => {
+    return generateVideoItemHtml(vid);
+  });
+  $('.results').html(videoItems);
 };
 
 // TASK:
@@ -159,10 +86,23 @@ const render = function() {
 // TEST IT!
 const handleFormSubmit = function() {
 
-};
+  $('form').on('submit', function(event) {
+    event.preventDefault();
+    const searchTerm = $('#search-term').val();
 
-// When DOM is ready:
-$(function () {
-  // TASK:
-  // 1. Run `handleFormSubmit` to bind the event listener to the DOM
+    console.log(searchTerm);
+
+    
+    $('#search-term').val('');
+
+    const callback = function (response){
+      const videos = decorateResponse(response)
+      addVideosToStore(videos);
+      render();
+    }
+    fetchVideos(searchTerm,callback);
+  });
+};
+$(function(){
+  handleFormSubmit();
 });
