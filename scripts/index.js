@@ -884,7 +884,7 @@ const decorateResponse = function(response) {
 //console.log(decorateResponse(testResponse));
 
 // TASK:
-// 1. Create a `generateVideoItemHtml` function that receives the decorated object
+// 1. Create a `generateVideoItemHtml` function that receives a decorated object
 // 2. Using the object, return an HTML string containing all the expected data
 // TEST IT!
 
@@ -895,9 +895,12 @@ const generateVideoItemHtml = function(video) {
       <img src="${video.thumbnail}">
     </li>`;
 };
-//console.log(items);
-//console.log(decorateResponse(items))
-//console.log(generateVideoItemHtml(decorateResponse(items)));
+// const testVideo = {
+//   id: "LzVmPPpObO4",
+//   thumbnail: "https://i.ytimg.com/vi/LzVmPPpObO4/mqdefault.jpg",
+//   title: "Jason Humphrey & How Thinkful Is Innovating Bootcamps",
+// };
+// console.log(generateVideoItemHtml(testVideo));
 
 // TASK:
 // 1. Create a `addVideosToStore` function that receives an array of decorated video
