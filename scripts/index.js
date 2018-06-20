@@ -919,8 +919,10 @@ const addVideosToStore = function(videos) {
 // 3. Add your array of DOM elements to the appropriate DOM element
 // TEST IT!
 const render = function() {
-
+  const videosHTML = store.videos.map(generateVideoItemHtml).join("\n");
+  $('ul.results').html(videosHTML);
 };
+//render();
 
 // TASK:
 // 1. Create a `handleFormSubmit` function that adds an event listener to the form
