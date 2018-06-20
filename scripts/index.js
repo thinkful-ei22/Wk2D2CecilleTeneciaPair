@@ -863,8 +863,7 @@ const fetchVideos = function(searchTerm, callback) {
   const url = BASE_URL + searchTerm;
   $.getJSON(url, callback);
 };
-
-//fetchVideos('thinkful',results => console.log(results));
+//fetchVideos('thinkful',console.log);
 
 // TASK:
 // 1. Create a `decorateResponse` function that receives the Youtube API response
